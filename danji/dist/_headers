@@ -1,0 +1,43 @@
+# =====================================================================
+#  Cloudflare Pages 响应头配置
+#  部署后由 Cloudflare 自动读取生效，用来加固站点的安全性
+#  参考：https://developers.cloudflare.com/pages/configuration/headers/
+# =====================================================================
+
+/*
+  # 禁止被 iframe 嵌套，防点击劫持
+  X-Frame-Options: DENY
+
+  # 禁止浏览器猜测 MIME 类型，防内容嗅探攻击
+  X-Content-Type-Options: nosniff
+
+  # 跨站跳转时只发送来源域名，不泄露完整路径
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # 关闭本站用不到的硬件与浏览器能力
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), usb=()
+
+  # 隔离浏览上下文，降低跨窗口攻击与侧信道风险
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+  # 强制 HTTPS（Cloudflare 已默认开启，这里再声明一次）
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # 内容安全策略：只允许本站脚本与样式；图片额外允许 https 外链（封面图常用外链）
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; manifest-src 'self'; worker-src 'self'; img-src 'self' data: blob: https:; media-src 'self' https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; upgrade-insecure-requests
+
+# ---------------------- 缓存策略 ----------------------
+
+# 构建产物带内容哈希，可以永久强缓存
+/_assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Robots-Tag: none
+
+# HTML 不缓存，保证内容更新即时可见
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 图标等静态资源缓存一周
+/*.svg
+  Cache-Control: public, max-age=604800

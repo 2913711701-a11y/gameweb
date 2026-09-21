@@ -1,0 +1,17 @@
+{
+  "name": "danji-games",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "description": "单机游戏资源站 —— 无框架静态站，一个构建脚本生成全站",
+  "scripts": {
+    "build": "node build.mjs build",
+    "start": "node build.mjs",
+    "serve": "node build.mjs serve",
+    "new": "node build.mjs new"
+  },
+  "dependencies": {
+    "js-yaml": "^5.4.2",
+    "marked": "^18.0.13"
+  }
+}

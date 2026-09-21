@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 部署后请把下面的域名改成你自己的站点域名
+Sitemap: https://danji.pages.dev/sitemap.xml
